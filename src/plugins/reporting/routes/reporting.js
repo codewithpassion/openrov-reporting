@@ -1,25 +1,24 @@
-/**
- * Created by roboto on 5/01/15.
- */
-app.post(
-  '/reporting/reportRov',
-
-
-  function(req, resp) {
-
-    var rov = new db.rov({bbSerial: req.body.rovInformation.bbSerial});
-    rov.save(function(err, rov) {
-      if (err) return console.error(err);
-      else { console.log('Successfully saved ROV with bb serial: ' + rov.bbSerial)}
-    });
-
-    resp.statusCode = 200;
-    resp.end();
-  }
-);
-
-
+var RovReporter = require('../controllers/rovReporter');
 
 module.exports = function(app, db) {
+
+  var rovReporter = new RovReporter(db);
+
+  app.post(
+    '/reporting/reportRov',
+    function(req, resp) {
+      rovReporter.append(req.body)
+        .then(function(rov) {
+          resp.statusCode = 200;
+          resp.send(rov);
+          resp.end();
+        }, function(error) {
+          resp.statusCode = 500;
+          resp.send(error);
+          resp.end();
+        })
+        .done();
+    }
+  );
 
 };
