@@ -15,7 +15,7 @@ var db = function(mongoose) {
     });
 
     return connection.promise;
-  }
+  };
   return self;
 };
 
