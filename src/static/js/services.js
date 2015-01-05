@@ -1,1 +1,1 @@
-angular.module('DashboardApp.services', []);
+angular.module('ReportingApp.services', []);

@@ -1,14 +1,14 @@
 var forever = require('forever-monitor');
-var child = new forever.Monitor('/opt/openrov/dashboard/src/dashboard.js', {
+var child = new forever.Monitor(__dirname + '/reporting.js', {
     max: 3,
     silent: process.env.NODE_DEBUG === 'false',
-    options: ['--proxy=http://localhost:3000'],
-    'logFile': '/var/log/openrov.dashboard.log',
-    'outFile': '/var/log/openrov.dashboard.log',
-    'errFile': '/var/log/openrov.dashboard.err.log'
+    options: [],
+    'logFile': '/var/log/openrov.reporting.log',
+    'outFile': '/var/log/openrov.reporting.log',
+    'errFile': '/var/log/openrov.reporting.err.log'
   });
 child.on('exit', function () {
-  console.log('dashboard.js has exited after 3 restarts');
+  console.log('reporting.js has exited after 3 restarts');
 });
 if (process.platform === 'linux') {
   process.on('SIGTERM', function () {

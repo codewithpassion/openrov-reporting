@@ -1,1 +1,1 @@
-angular.module('DashboardApp.controllers', []);
+angular.module('ReportingApp.controllers', []);

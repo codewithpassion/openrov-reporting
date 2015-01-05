@@ -1,20 +1,19 @@
-var __dashboard;
+var __index;
 var __socket;
 $(function() {
   __socket = io.connect();
-  __dashboard  = new Dashboard(__socket);
+  __index  = new Index(__socket);
 
 });
 
-angular.module('DashboardApp', [
-  'DashboardApp.controllers',
-  'DashboardApp.services',
-  'DashboardApp.subModules',
+angular.module('ReportingApp', [
+  'ReportingApp.controllers',
+  'ReportingApp.services',
+  'ReportingApp.subModules',
   'ui.router'
 ])
   .config(function($urlRouterProvider) {
     $urlRouterProvider.otherwise('/services');
   })
-  .value('DashboardAccess', function() { return __dashboard  })
   .value('SocketAccess', function() { return __socket; });
 
