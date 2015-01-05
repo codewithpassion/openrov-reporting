@@ -3,8 +3,8 @@
  */
 
 var routes = {};
-routes.register = function(app) {
-  routes.reporting = require('./reporting')(app);
+routes.register = function(app, db) {
+  routes.reporting = require('./reporting')(app, db);
 };
 
 module.exports = routes;

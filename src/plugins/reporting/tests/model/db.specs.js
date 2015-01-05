@@ -16,7 +16,8 @@ describe('db module', function() {
 
     beforeEach(function() {
       connection = { on: sinon.stub(), once: sinon.stub() };
-      mongoose = { connect: sinon.stub(), connection: connection };
+      mongoose = { connect: sinon.stub(), connection: connection, Schema: sinon.stub(), model: sinon.stub() };
+      mongoose.model.returns({});
     });
 
     it('rejects promise on error', function() {
@@ -33,9 +34,25 @@ describe('db module', function() {
       connection.once.withArgs('open')
         .callsArg(1);
 
-      var promise = new underTest(mongoose).connect();
+      var testee = new underTest(mongoose);
+      var promise = testee.connect();
 
-      return promise.should.become(mongoose);
+      return promise.should.become(testee);
     });
+
+    it('loads models', function(done) {
+      connection.once.withArgs('open')
+        .callsArg(1);
+
+      var testee = new underTest(mongoose);
+      var promise = testee.connect();
+
+      promise.then(function(db) {
+        db.should.have.property('rov');
+        done();
+      });
+    });
+
+
   });
 });

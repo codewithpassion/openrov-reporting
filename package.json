@@ -17,6 +17,7 @@
     "nconf": "^0.7.1",
     "optimist": "^0.6.1",
     "q": "^2.0.2",
+    "q-io": "^1.11.6",
     "socket.io": "^1.2.1"
   },
   "bundleDependencies": [
